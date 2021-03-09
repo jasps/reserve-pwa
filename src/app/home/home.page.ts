@@ -126,8 +126,13 @@ export class HomePage {
     this.fileinput.nativeElement.click();
   }
 
-  handleFile(files: FileList) {
-    const file = files.item(0);
+  handleFile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (!target) {
+      return;
+    }
+
+    const file = target.files.item(0);
 
     var img = new Image();
     img.onload = () => {
