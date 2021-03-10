@@ -59,6 +59,10 @@ export class HomePage {
     toast.present();
   }
 
+  async showQrResult() {
+    window.open(this.sanitizeUrl(this.scanResult), '_system', 'location=yes');
+  }
+
   async startScan() {
     // Not working on iOS standalone mode!
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -107,7 +111,7 @@ export class HomePage {
       if (code) {
         this.scanActive = false;
         this.scanResult = code.data;
-        this.showQrToast();
+        this.showQrResult();
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
@@ -159,7 +163,7 @@ export class HomePage {
 
       if (code) {
         this.scanResult = code.data;
-        this.showQrToast();
+        this.showQrResult();
       }
     };
     img.src = URL.createObjectURL(file);
