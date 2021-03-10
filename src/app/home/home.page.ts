@@ -47,7 +47,11 @@ export class HomePage {
         {
           text: 'Open',
           handler: () => {
-            window.open(this.scanResult, '_system', 'location=yes');
+            window.open(
+              this.sanitizeUrl(this.scanResult),
+              '_system',
+              'location=yes'
+            );
           },
         },
       ],
@@ -159,5 +163,14 @@ export class HomePage {
       }
     };
     img.src = URL.createObjectURL(file);
+  }
+
+  private sanitizeUrl(url: string): string {
+    let sanitizedUrl = url;
+    if (sanitizedUrl.toLocaleLowerCase().startsWith('http') === false) {
+      sanitizedUrl = `https://${url}`;
+    }
+
+    return sanitizedUrl;
   }
 }
